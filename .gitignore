@@ -1,0 +1,12 @@
+/target
+
+*.prefs
+cepservice/.classpath
+cepservice/.settings/.jsdtscope
+*.component
+cepservice/.settings/org.eclipse.wst.common.project.facet.core.xml
+*.container
+cepservice/.settings/org.eclipse.wst.jsdt.ui.superType.name
+crudcepservice/.classpath
+crudcepservice/.settings/.jsdtscope
+hiringjstream/.classpath
