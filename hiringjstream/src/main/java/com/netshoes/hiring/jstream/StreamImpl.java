@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * StreamImpl is a implementation of the Stream interface
+ * proposal by hiring test 
  * 
  * @author raul.sousa
  * 
@@ -24,7 +25,7 @@ public class StreamImpl implements Stream {
 	/**
 	 * Last read index
 	 */
-	private int lastIndex = -1;
+	private int lastReadIndex = -1;
 
 	/**
 	 * Constructor
@@ -40,7 +41,7 @@ public class StreamImpl implements Stream {
 	 * @see Stream
 	 */
 	public char getNext() {
-		char next = input.charAt(++lastIndex);
+		char next = input.charAt(++lastReadIndex);
 		charRead.add(next);
 		return next;
 	}
@@ -51,7 +52,7 @@ public class StreamImpl implements Stream {
 	public boolean hasNext() {
 
 		try {
-			input.charAt(lastIndex + 1);
+			input.charAt(lastReadIndex + 1);
 			return true;
 		} catch (IndexOutOfBoundsException ex) {
 		}

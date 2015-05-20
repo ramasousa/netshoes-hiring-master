@@ -11,56 +11,55 @@ public class StreamExecution {
 	/**
 	 * Null char constant
 	 */
-	static final char CHAR_NULL = 0;
+	static final char NULL_CHAR = 0;
 
 	/**
 	 * Main execution method
 	 * 
-	 * @param args
-	 *            - The first index will be the input chars list as String
+	 * @param args- The first index will be the input chars list as String
+	 *            
 	 */
 	public static void main(String[] args) {
 		char firstChar = firstChar(new StreamImpl(args[0]));
-		System.out.println(CHAR_NULL == firstChar ? "No different char found." : "First different char is -> " + firstChar);
+		System.out.println(NULL_CHAR == firstChar ? "No different char found." : "First different char is -> " + firstChar);
 	}
 
 	/**
 	 * This method gets the first different char in a input
 	 * 
 	 * @param input
-	 *            chars input stream list
+	 *            
 	 * @return
 	 */
 	public static char firstChar(Stream input) {
 
-		char firstDifferent = CHAR_NULL;
-		char last = CHAR_NULL;
+		char firstCharDifferent = NULL_CHAR;
+		char lastChar = NULL_CHAR;
 
 		while (input.hasNext()) {
 
-			char actual = input.getNext();
+			char actualChar = input.getNext();
 
-			if (last != 0 && isDifferent(last, actual)) {
-				firstDifferent = actual;
+			if (lastChar != 0 && charIsDifferent(lastChar, actualChar)) {
+				firstCharDifferent = actualChar;
 				break;
 			}
 
-			last = actual;
+			lastChar = actualChar;
 		}
 
-		return firstDifferent;
+		return firstCharDifferent;
 	}
 
 	/**
 	 * Verify if a char is different from another
 	 * 
 	 * @param last
-	 *            last read char
 	 * @param actual
-	 *            actual char read
+	 *            
 	 * @return if both is different or not
 	 */
-	private static final boolean isDifferent(char last, char actual) {
+	private static final boolean charIsDifferent(char last, char actual) {
 		return Character.toLowerCase(last) != Character.toLowerCase(actual);
 	}
 
