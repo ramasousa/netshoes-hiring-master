@@ -59,7 +59,7 @@ curl -H "Accept: application/json" -H "Content-Type: application/json"  -X PUT -
 #### Delete Address
 
 ```sh
-curl -H "Accept: application/json" -H "Content-Type: application/json"  -X DELETE http://host:port/crudservice/api/id
+curl -H "Accept: application/json" -H "Content-Type: application/json"  -X DELETE http://host:port/crudcepservice/api/id
 ```
 
 
