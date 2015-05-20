@@ -33,7 +33,7 @@ public class FailedStatus implements Serializable {
 	}
 
 	/**
-	 * Bad status message
+	 * Failed status message
 	 */
 	private String statusMessage;
 

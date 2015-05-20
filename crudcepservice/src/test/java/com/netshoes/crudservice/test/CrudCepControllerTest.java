@@ -38,14 +38,15 @@ public class CrudCepControllerTest {
 
 	private MockMvc mockMvc;
 
+	@InjectMocks
+	private CrudCepController crudCepController;
+
 	@Mock
 	private AddressService addressService;
 
 	@Mock
 	private CepService cepService;
 
-	@InjectMocks
-	private CrudCepController crudController;
 
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
@@ -53,7 +54,7 @@ public class CrudCepControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(crudController).dispatchOptions(true).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(crudCepController).dispatchOptions(true).build();
 	}
 
 	/**
@@ -79,12 +80,13 @@ public class CrudCepControllerTest {
 
 		when(cepService.validateCep(cep)).thenReturn(customCep);
 		when(addressService.insertAddress(enderecoIn)).thenReturn(id);
-		when(crudController.createAddress(enderecoIn)).thenReturn(Mockito.any(Address.class));
+		when(crudCepController.createAddress(enderecoIn)).thenReturn(Mockito.any(Address.class));
 
 		String body = "{\"street\":\"Rua Test Hiring\",\"number\":\"201505\",\"cep\":\"06807060\",\"city\":\"Netshoes\",\"state\":\"SP\"}";
 
 		mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(body)).andDo(MockMvcResultHandlers.print())
-				.andExpect(status().isOk()).andExpect(jsonPath("$.cep", is(cep)));
+																						.andExpect(status().isOk())
+																						.andExpect(jsonPath("$.cep", is(cep)));
 	}
 
 	/**
@@ -122,7 +124,7 @@ public class CrudCepControllerTest {
 		String body = "{\"street\":\"Rua Vergueiro\",\"number\":\"1455\",\"cep\":\"06753160\",\"city\":\"Netshoes\",\"state\":\"SP\"}";
 
 		mockMvc.perform(put("/").contentType(MediaType.APPLICATION_JSON).content(body)).andDo(MockMvcResultHandlers.print())
-				.andExpect(status().is(HttpStatus.NO_CONTENT.value()));
+																					   .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
 	}
 
 	/**
@@ -138,7 +140,7 @@ public class CrudCepControllerTest {
 		when(addressService.deleteAddress(id)).thenReturn(true);
 		
 		mockMvc.perform(delete("/" + id).contentType(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print())
-				.andExpect(status().isOk());
+																				 .andExpect(status().isOk());
 	}
 
 	/**
@@ -160,10 +162,10 @@ public class CrudCepControllerTest {
 		enderecoOut.setStreet("Rua Vergueiro");
 
 		when(addressService.selectAddress(id)).thenReturn(enderecoOut);
-		when(crudController.getAddress(id)).thenReturn(enderecoOut);
+		when(crudCepController.getAddress(id)).thenReturn(enderecoOut);
 
 		mockMvc.perform(get("/" + id).contentType(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print())
-				.andExpect(status().isOk()).andExpect(jsonPath("$.cep", is(cep)));
+																			  .andExpect(status().isOk()).andExpect(jsonPath("$.cep", is(cep)));
 	}
 
 }

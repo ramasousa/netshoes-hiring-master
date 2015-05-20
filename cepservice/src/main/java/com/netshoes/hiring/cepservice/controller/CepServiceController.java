@@ -27,11 +27,8 @@ import com.netshoes.hiring.cepservice.service.CepService;
 @RequestMapping("/")
 public class CepServiceController {
 
-	@Autowired
-	private CepService cepService;
-
 	/**
-	 * Maximum retry quantity
+	 * Maximum quantity retry 
 	 */
 	private static final int MAX_QUANTITY_RETRY = 5;
 
@@ -40,8 +37,17 @@ public class CepServiceController {
 	 */
 	private static final String ZERO = "0";
 
+	@Autowired
+	private CepService cepService;
+	
 	/**
-	 * Method responsible for getting the cep based on a received id
+	 * This message return when a cep is invalid
+	 */
+	private static final String MESSAGE_EXCEPTION = "Cep is invalid";
+
+	
+	/**
+	 * Method responsible for get cep based on a received id
 	 * 
 	 * @param id CEP id
 	 * @return   CEP data
@@ -53,9 +59,9 @@ public class CepServiceController {
 
 		// Validate the input cep
 		if (cepIn == null) {
-			throw new InvalidCepException("cep is invalid");
+			throw new InvalidCepException(MESSAGE_EXCEPTION);
 		} else if (!StringUtils.isNumeric(cepIn.getId()) || cepIn.getId().length() != 8) {
-			throw new InvalidCepException("cep " + cepIn.getId() + " is invalid");
+			throw new InvalidCepException("Cep " + cepIn.getId() + " is invalid");
 		}
 
 		// Get the cep in data base and return
@@ -78,7 +84,7 @@ public class CepServiceController {
 		} catch (CepNotFoundException e) {
 
 			if (tentative <= MAX_QUANTITY_RETRY) {
-				id = StringUtils.reverse(StringUtils.reverse(id).substring(tentative)) + fillWithZero(tentative);
+				id = StringUtils.reverse(StringUtils.reverse(id).substring(tentative)) + fillCepWithZero(tentative);
 				cep = getCepRetryTentative(id, ++tentative);
 			}
 		}
@@ -87,13 +93,13 @@ public class CepServiceController {
 	}
 
 	/**
-	 * Local method for calling the cepService API
+	 * Method for calling the cepService
 	 * 
 	 * @param id
-	 *            CEP id
+	 *            
 	 * @return CEP data
 	 * @throws CepNotFoundException
-	 *             Thrown when the cep is not found on DB
+	 *             
 	 */
 	private Cep getCepLocal(String id) throws CepNotFoundException {
 		return cepService.getCepById(id);
@@ -102,7 +108,7 @@ public class CepServiceController {
 	@ExceptionHandler(InvalidCepException.class)
 	public @ResponseBody
 	FailedStatus exceptionHandler() {
-		return new FailedStatus("CEP is invalid");
+		return new FailedStatus(MESSAGE_EXCEPTION);
 	}
 	
 	/**
@@ -112,7 +118,7 @@ public class CepServiceController {
 	 *            
 	 * @return
 	 */
-	private String fillWithZero(int quantity) {
+	private String fillCepWithZero(int quantity) {
 
 		String zero = "";
 		int i = 0;

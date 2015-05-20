@@ -1,4 +1,6 @@
-package com.netshoes.hiring.jstream;
+package com.netshoes.hiring.jstream.test;
+
+import com.netshoes.hiring.jstream.StreamExecution;
 
 /**
  * StreamExecution test class

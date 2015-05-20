@@ -39,23 +39,25 @@ public class CepControllerTest {
 
 	private MockMvc mockMvc;
 
+	@InjectMocks
+	private CepServiceController cepServiceController;
+
+	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
+																		MediaType.APPLICATION_JSON.getSubtype(), 
+																		Charset.forName("utf8"));
+
 	@Mock
 	private CepService cepService;
 
-	@InjectMocks
-	private CepServiceController cepController;
-
-	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
-			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-
+	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(cepController).dispatchOptions(true).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(cepServiceController).dispatchOptions(true).build();
 	}
 
 	/**
-	 * Tests the system behavior with a given valid cep
+	 * Tests the system behavior with a receive a valid cep
 	 * 
 	 * @throws Exception
 	 */
@@ -69,38 +71,14 @@ public class CepControllerTest {
 		cepOut.setId("06807060");
 		cepOut.setState("SP");
 
-		when(cepController.getCep(cepIn)).thenReturn(cepOut);
+		when(cepServiceController.getCep(cepIn)).thenReturn(cepOut);
 		
 		String body = "{ \"id\": \"06807060\" }";
 
 		mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(body)).andDo(MockMvcResultHandlers.print())
 				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is("06807060"))).andExpect(jsonPath("$.state", is("SP")));
 	}
-
-	/**
-	 * Tests the system behavior while a valid cep not found, including zeros at
-	 * the end
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void cepFoundWithZerosTest() throws Exception {
-
-		Cep cepIn = new Cep();
-		cepIn.setId("90000009");
-
-		Cep cepOut = new Cep();
-		cepOut.setId("90000000");
-		cepOut.setDistrict("Bairro dos zeros");
-
-		when(cepController.getCep(cepIn)).thenReturn(cepOut);
-
-		String body = "{ \"id\": \"90000009\" }";
-
-		mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(body)).andDo(MockMvcResultHandlers.print())
-				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is("90000000"))).andExpect(jsonPath("$.district", is("Bairro dos zeros")));
-	}
-
+	
 	/**
 	 * Tests the system behavior with a cep not found
 	 * 
@@ -114,12 +92,39 @@ public class CepControllerTest {
 
 		Cep cepOut = new Cep();
 
-		when(cepController.getCep(cepIn)).thenReturn(cepOut);
+		when(cepServiceController.getCep(cepIn)).thenReturn(cepOut);
 
 		String body = "{ \"id\": \"99999999\" }";
 
 		mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(body)).andDo(MockMvcResultHandlers.print())
-				.andExpect(status().isOk()).andExpect(jsonPath("$.id", IsNull.nullValue()));
+																						.andExpect(status().isOk())
+																						.andExpect(jsonPath("$.id", IsNull.nullValue()));
 	}
+
+	/**
+	 * Tests the system behavior while a valid cep not found
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void cepFoundWithZerosTest() throws Exception {
+
+		Cep cepIn = new Cep();
+		cepIn.setId("90000009");
+
+		Cep cepOut = new Cep();
+		cepOut.setId("90000000");
+		cepOut.setDistrict("Bairro dos zeros");
+
+		when(cepServiceController.getCep(cepIn)).thenReturn(cepOut);
+
+		String body = "{ \"id\": \"90000009\" }";
+
+		mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(body)).andDo(MockMvcResultHandlers.print())
+																						.andExpect(status().isOk())
+																						.andExpect(jsonPath("$.id", is("90000000")))
+																						.andExpect(jsonPath("$.district", is("Bairro dos zeros")));
+	}
+
 
 }

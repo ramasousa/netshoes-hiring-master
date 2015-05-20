@@ -19,11 +19,7 @@ public class InvalidCepException extends Exception {
 	public InvalidCepException(String message) {
 		super(message);
 	}
-
-	public InvalidCepException(Throwable cause) {
-		super(cause);
-	}
-
+	
 	public InvalidCepException(String message, Throwable cause) {
 		super(message, cause);
 	}
@@ -32,4 +28,8 @@ public class InvalidCepException extends Exception {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
+
+	public InvalidCepException(Throwable cause) {
+		super(cause);
+	}
 }

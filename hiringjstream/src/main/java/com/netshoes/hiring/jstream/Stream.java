@@ -1,7 +1,7 @@
 package com.netshoes.hiring.jstream;
 
 /**
- * Stream interface
+ * Stream interface pre defined in the hiring test
  * 
  * @author raul.sousa
  * 

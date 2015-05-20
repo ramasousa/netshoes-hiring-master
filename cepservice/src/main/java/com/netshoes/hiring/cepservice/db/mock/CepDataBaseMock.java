@@ -1,4 +1,4 @@
-package com.netshoes.hiring.cepservice.mock;
+package com.netshoes.hiring.cepservice.db.mock;
 
 import java.util.ArrayList;
 import java.util.List;
