@@ -20,8 +20,8 @@ public class StreamExecution {
 	 *            - The first index will be the input chars list as String
 	 */
 	public static void main(String[] args) {
-		char first = firstChar(new StreamImpl(args[0]));
-		System.out.println(CHAR_NULL == first ? "No different char found." : "First non repeatable char -> " + first);
+		char firstChar = firstChar(new StreamImpl(args[0]));
+		System.out.println(CHAR_NULL == firstChar ? "No different char found." : "First different char is -> " + firstChar);
 	}
 
 	/**

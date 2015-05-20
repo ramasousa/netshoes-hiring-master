@@ -34,7 +34,7 @@ public class StreamExecutionTest {
 		StreamExecution.main(equals);
 
 		// Test empty
-		String[] empty = { "    R" };
+		String[] empty = { "   R" };
 		StreamExecution.main(empty);
 	}
 }
