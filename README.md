@@ -2,8 +2,9 @@
 
 Projetos desenvolvidos para avaliação técnica da Netshoes. Os seguintes módulos foram desenvolvidos:
 
-  <b>CepService</b> - Projeto Rest com objetivo de expor um serviço que permite a obtenção de um endereço a partir de um CEP                       informado.
-  <b>HiringJStream</b> - Projeto de Stream implementando a interface proposta no cenário, ou seja, identifica o primeiro                              caracter que não se repete em uma determinada Stream.
+  <b>CepService</b> - Projeto Rest com objetivo de expor um serviço que permite a obtenção de um endereço a partir de um CEP                       informado.</br>
+  
+  <b>HiringJStream</b> - Projeto de Stream implementando a interface proposta no cenário, ou seja, identifica o primeiro                              caracter que não se repete em uma determinada Stream.</br>
   
 <b>CadastroCepService</b> Projeto desenvolvido para efetuar o CRUD de um endereço
 
