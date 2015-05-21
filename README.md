@@ -2,13 +2,13 @@
 
 Projetos desenvolvidos para avaliação técnica da Netshoes. Os seguintes módulos foram desenvolvidos:
 
-  <b>CepService</b> - Projeto Rest com objetivo de expor um serviço que permite a obtenção de um endereço a partir de um CEP                       informado.</br>
+  <b>CepRestfull</b> - Projeto Rest com objetivo de expor um serviço que permite a obtenção de um endereço a partir de um CEP                       informado.</br>
   
-  <b>HiringJStream</b> - Projeto de Stream implementando a interface proposta no cenário, ou seja, identifica o primeiro                              caracter que não se repete em uma determinada Stream.</br>
+  <b>StreamReader</b> - Projeto de Stream implementando a interface proposta no cenário, ou seja, identifica o primeiro                              caracter que não se repete em uma determinada Stream.</br>
   
-<b>CadastroCepService</b> Projeto desenvolvido para efetuar o CRUD de um endereço
+<b>AddressRestfull</b> Projeto desenvolvido para efetuar o CRUD de um endereço
 
-## HiringJStream
+## StreamReader
 ### Instalação
 Para efetuar a instalação executar o comando abaixo com o Maven na pasta do projeto:
 ```sh
@@ -28,38 +28,45 @@ java -jar jstream-1.0.0.jar aaAAbbBB
 ```
 
 
-## CepService
+## CepRestfull
 Efetuar o build com o Maven (clean install), deployar no servidor e após isso executá-lo:
 
 ```sh
-curl -H "Accept: application/json" -H "Content-Type: application/json"  -X POST -d '{"id":"06807060"}' http://host-netshoes:port-netshoes/cepservice/api/
+curl -H "Accept: application/json" -H "Content-Type: application/json"  -X POST -d '{\"id\":\"06807060\"}' http://netshoes_host:port/ceprestfull/api/
 ```
 
-## CadastroCepService
+## Available IDs to POST in CepRestfull
+```sh
+06823240
+06807050
+06807040
+```
+
+## AddressRestfull
 Efetuar o build com o Maven (clean install), deployar no servidor de aplicação e após isso executá-lo:
 
 #### Create Address
 
 ```sh
-curl -H "Accept: application/json" -H "Content-Type: application/json"  -X POST -d '{"street":"Rua Netshoes","number":"2015","cep":"06015015","city":"Netshoes","state":"SP"}' http://host:port/crudcepservice/api/
+curl -H "Accept: application/json" -H "Content-Type: application/json"  -X POST -d '{\"street\":\"Rua Netshoes\",\"number\":\"2015\",\"cep\":\"06807060\",\"city\":\"Netshoes\",\"state\":\"SP\"}' http://netshoes_host:port/adressrestfull/api/
 ```
-#### Select Address
+#### Read Address
 
 ```sh
-curl -H "Accept: application/json" -H "Content-Type: application/json"  -X GET http://host:port/crudcepservice/api/id
+curl -H "Accept: application/json" -H "Content-Type: application/json"  -X GET http://netshoes_host:port/adressrestfull/api/id
 ```
 
 #### Update Address
 
 ```sh
-curl -H "Accept: application/json" -H "Content-Type: application/json"  -X PUT -d '{"id":"1f753ab3-1df3-4a99-8556-7e820fb9c3x7","street":"Rua Netshoes","number":"2015","cep":"06753163","district":Netshoes,"city":"Netshoes","state":"SP","otherInformation":null}' http://host:port/crudcepservice/api/
+curl -H "Accept: application/json" -H "Content-Type: application/json"  -X PUT -d '{\"id\":\"06807040\",\"street\":\"Rua Netshoes\",\"number\":\"2015\",\"cep\":\"06807040\",\"district\":\"Netshoes\",\"city\":\"Netshoes\",\"state\":\"SP\",\"otherInformation\":null}' http://netshoes_host:port/adressrestfull/api/
 ```
 
 
 #### Delete Address
 
 ```sh
-curl -H "Accept: application/json" -H "Content-Type: application/json"  -X DELETE http://host:port/crudcepservice/api/id
+curl -H "Accept: application/json" -H "Content-Type: application/json"  -X DELETE http://netshoes_host:port/adressrestfull/api/id
 ```
 
 
