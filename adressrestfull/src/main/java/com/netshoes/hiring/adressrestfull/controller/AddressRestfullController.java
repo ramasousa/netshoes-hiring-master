@@ -35,13 +35,13 @@ import com.netshoes.hiring.adressrestfull.service.AddressService;
 public class AddressRestfullController {
 
 	/**
-	 * Address service
+	 * AddressRestfull service
 	 */
 	@Autowired
 	private AddressRestfull addressRestfull;
 
 	/**
-	 * Cep service
+	 * AddressService service
 	 */
 	@Autowired
 	private AddressService addressService;
